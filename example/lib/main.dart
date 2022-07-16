@@ -29,38 +29,60 @@ class HomePage extends StatelessWidget {
         title: const Text('Story Introduction'),
       ),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Press to introduce new thing to user 👀',
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    // fullscreenDialog: true,
-                    opaque: false,
-                    pageBuilder: (_, __, ___) => StoryIntroductionScreen(
-                      StoryIntroductionProps(
-                        featureName: '',
-                        duration: 4000,
-                        stories: [
-                          Story(
-                            title: 'React',
-                            backgroundColor: Colors.red,
-                            description: 'Description',
-                          ),
-                        ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Press to introduce new thing to user 👀',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (_, __, ___) => StoryIntroductionScreen(
+                        StoryIntroductionProps(
+                          featureName: 'New Feature Name',
+                          duration: 4000,
+                          isDismissible: true,
+                          stories: [
+                            Story(
+                              title: 'React',
+                              backgroundColor: Colors.red,
+                              description: 'Description',
+                            ),
+                            Story(
+                              title: 'React',
+                              backgroundColor: Colors.green,
+                              description: 'Description',
+                            ),
+                            Story(
+                              title: 'React',
+                              backgroundColor: Colors.blue,
+                              description: 'Description',
+                            ),
+                            Story(
+                              title: 'React',
+                              backgroundColor: Colors.orange,
+                              description: 'Description',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-              child: const Text('New feature ✨'),
-            ),
-          ],
+                  );
+                },
+                child: const Text('New feature ✨'),
+              ),
+            ],
+          ),
         ),
       ),
     );
