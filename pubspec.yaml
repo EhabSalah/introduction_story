@@ -1,0 +1,19 @@
+name: story_introduction
+description: A new Flutter project.
+version: 0.0.1
+homepage: https://github.com/EhabSalah/story_introduction
+issue_tracker: https://github.com/ehabsalah/story_introduction/issues
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
