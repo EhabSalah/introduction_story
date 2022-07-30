@@ -46,6 +46,8 @@ class StoryIntroductionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _prefetchImages(_props.stories, context);
+
     final scaffold = Scaffold(
       body: BlocProvider<_StoryIntroductionBloc>(
         create: (_) => _StoryIntroductionBloc(
@@ -155,5 +157,15 @@ class StoryIntroductionScreen extends StatelessWidget {
               child: scaffold,
             ),
     );
+  }
+}
+
+/// Prefetch images into the image cache.
+/// If the image is later used, it will probably be loaded faster.
+void _prefetchImages(List<Story> stories, BuildContext context) {
+  final imagePaths = stories.map((s) => s.imagePath);
+
+  for (var imagePath in imagePaths) {
+    if (imagePath != null) precacheImage(AssetImage(imagePath), context);
   }
 }
