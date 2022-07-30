@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../story.dart';
@@ -19,9 +21,6 @@ part 'watch_progress_bars.dart';
 /// [StoryIntroductionProps] represents the required properties
 /// for [StoryIntroductionScreen] widget to be rendered.
 class StoryIntroductionProps {
-  /// Feature name
-  final String featureName;
-
   /// Each story watch duration.
   final List<Story> stories;
 
@@ -32,7 +31,6 @@ class StoryIntroductionProps {
   final bool isDismissible;
 
   StoryIntroductionProps({
-    required this.featureName,
     required this.stories,
     required this.duration,
     this.isDismissible = false,
@@ -40,8 +38,6 @@ class StoryIntroductionProps {
 }
 
 class StoryIntroductionScreen extends StatelessWidget {
-  static const _contentHorizontalPadding = 18.0;
-
   final StoryIntroductionProps _props;
 
   const StoryIntroductionScreen(StoryIntroductionProps props, {Key? key})
@@ -62,80 +58,84 @@ class StoryIntroductionScreen extends StatelessWidget {
           },
           builder: (context, state) {
             final imagePath = _props.stories[state.currentStoryIndex].imagePath;
-            return Stack(
-              children: [
-                // Background
-                Container(
-                  decoration: BoxDecoration(
-                    color:
-                        _props.stories[state.currentStoryIndex].backgroundColor,
-                    image: imagePath == null
-                        ? null
-                        : DecorationImage(
-                            image: AssetImage(imagePath), fit: BoxFit.fill),
-                  ),
-                ),
 
-                // Gestures
-                _Gestures(
-                  onFirstHalfPressed: () {
-                    context
-                        .read<_StoryIntroductionBloc>()
-                        .add(_PreviousStory());
-                  },
-                  onSecondHalfPressed: () {
-                    context.read<_StoryIntroductionBloc>().add(_NextStory());
-                  },
-                  onLongPress: () {
-                    context.read<_StoryIntroductionBloc>().add(_Pause());
-                  },
-                  onLongPressUp: () {
-                    context.read<_StoryIntroductionBloc>().add(_Continue());
-                  },
-                ),
+            final storyTheme =
+                _props.stories[state.currentStoryIndex].storyThemeMode;
 
-                // Foreground
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(
-                    top: 60,
-                    start: StoryIntroductionScreen._contentHorizontalPadding,
-                    end: StoryIntroductionScreen._contentHorizontalPadding,
+            final backgroundColor =
+                _props.stories[state.currentStoryIndex].backgroundColor;
+
+            final foreground =
+                _props.stories[state.currentStoryIndex].foreground;
+
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                // We didn't change the statusbar brightness in Android because of this issue
+                // https://stackoverflow.com/questions/62101879/how-to-revert-status-bar-to-its-default-values-after-using-annotatedregion
+
+                // Only for iOS.
+                statusBarBrightness:
+                    Platform.isIOS ? storyTheme.brightness : null,
+              ),
+              child: Stack(
+                children: [
+                  // Background
+                  Container(
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      image: imagePath != null
+                          ? DecorationImage(
+                              image: AssetImage(imagePath),
+                              fit: BoxFit.fill,
+                            )
+                          : null,
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  // Gestures
+                  _Gestures(
+                    onFirstHalfPressed: () {
+                      context
+                          .read<_StoryIntroductionBloc>()
+                          .add(_PreviousStory());
+                    },
+                    onSecondHalfPressed: () {
+                      context.read<_StoryIntroductionBloc>().add(_NextStory());
+                    },
+                    onLongPress: () {
+                      context.read<_StoryIntroductionBloc>().add(_Pause());
+                    },
+                    onLongPressUp: () {
+                      context.read<_StoryIntroductionBloc>().add(_Continue());
+                    },
+                  ),
+
+                  // Foreground
+                  Column(
                     children: [
-                      // Progress bars
-                      WatchProgressBars(
-                        percentWatched: state.storiesWatchProgress,
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(
+                          top: 60.0,
+                          start: 18.0,
+                          end: 18.0,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Progress bars
+                            WatchProgressBars(
+                              percentWatched: state.storiesWatchProgress,
+                              color: storyTheme.foregroundColor,
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 16),
-
-                      // Feature name and Skip button
-                      _FeatureNameAndSkip(_props.featureName),
-
-                      const SizedBox(height: 2),
-
-                      // Story Title
-                      Text(
-                        _props.stories[state.currentStoryIndex].title,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-
-                      const SizedBox(height: 8),
-
-                      // Story Description
-                      Text(
-                        _props.stories[state.currentStoryIndex].description,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 13),
-                      ),
+                      if (foreground != null) foreground
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),
@@ -149,43 +149,11 @@ class StoryIntroductionScreen extends StatelessWidget {
       child: !_props.isDismissible
           ? scaffold
           : Dismissible(
-              key: const Key('_'),
+              key: UniqueKey(),
               direction: DismissDirection.vertical,
               onDismissed: (_) => Navigator.of(context).pop(),
               child: scaffold,
             ),
-    );
-  }
-}
-
-class _FeatureNameAndSkip extends StatelessWidget {
-  final String name;
-
-  const _FeatureNameAndSkip(this.name, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-            child: Text(name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.fade)),
-        const Spacer(),
-        GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            padding: const EdgeInsetsDirectional.only(start: 16, bottom: 8),
-            child: const Icon(Icons.clear, color: Colors.white, size: 20),
-          ),
-        ),
-      ],
     );
   }
 }
