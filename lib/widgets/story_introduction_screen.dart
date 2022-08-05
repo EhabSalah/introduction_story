@@ -9,18 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../story.dart';
 
 part '../bloc/story_introduction_bloc.dart';
-
 part '../bloc/story_introduction_event.dart';
-
 part '../bloc/story_introduction_state.dart';
-
 part 'gestures.dart';
-
 part 'watch_progress_bars.dart';
 
-/// [StoryIntroductionProps] represents the required properties
-/// for [StoryIntroductionScreen] widget to be rendered.
-class StoryIntroductionProps {
+class StoryIntroduction extends StatelessWidget {
   /// Each story watch duration.
   final List<Story> stories;
 
@@ -30,51 +24,41 @@ class StoryIntroductionProps {
   /// Drag vertically to dismiss.
   final bool isDismissible;
 
-  StoryIntroductionProps({
+  StoryIntroduction({
+    Key? key,
     required this.stories,
     required this.duration,
     this.isDismissible = false,
-  });
-}
-
-class StoryIntroductionScreen extends StatelessWidget {
-  final StoryIntroductionProps _props;
-
-  const StoryIntroductionScreen(StoryIntroductionProps props, {Key? key})
-      : _props = props,
+  })  : assert(stories.isNotEmpty, 'Stories count should be more than zero!'),
+        assert(duration >= 1000, 'Story duration should be >= 1 second.'),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _prefetchImages(_props.stories, context);
+    _prefetchImages(stories, context);
 
     final scaffold = Scaffold(
       body: BlocProvider<_StoryIntroductionBloc>(
         create: (_) => _StoryIntroductionBloc(
-          storyDuration: _props.duration,
-          storiesCount: _props.stories.length,
+          storyDuration: duration,
+          storiesLength: stories.length,
         )..add(_Start()),
         child: BlocConsumer<_StoryIntroductionBloc, _StoryIntroductionState>(
           listener: (_, state) {
             if (state is _End) Navigator.pop(context);
           },
           builder: (context, state) {
-            final imagePath = _props.stories[state.currentStoryIndex].imagePath;
+            final imagePath = stories[state.currentStoryIndex].imagePath;
 
-            final storyTheme =
-                _props.stories[state.currentStoryIndex].storyThemeMode;
+            final storyTheme = stories[state.currentStoryIndex].storyThemeMode;
 
             final backgroundColor =
-                _props.stories[state.currentStoryIndex].backgroundColor;
+                stories[state.currentStoryIndex].backgroundColor;
 
-            final foreground =
-                _props.stories[state.currentStoryIndex].foreground;
+            final foreground = stories[state.currentStoryIndex].foreground;
 
             return AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
-                // We didn't change the statusbar brightness in Android because of this issue
-                // https://stackoverflow.com/questions/62101879/how-to-revert-status-bar-to-its-default-values-after-using-annotatedregion
-
                 // Only for iOS.
                 statusBarBrightness:
                     Platform.isIOS ? storyTheme.brightness : null,
@@ -144,19 +128,14 @@ class StoryIntroductionScreen extends StatelessWidget {
       ),
     );
 
-    return MediaQuery(
-      // Ignore the OS changes in text size.
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-
-      child: !_props.isDismissible
-          ? scaffold
-          : Dismissible(
-              key: UniqueKey(),
-              direction: DismissDirection.vertical,
-              onDismissed: (_) => Navigator.of(context).pop(),
-              child: scaffold,
-            ),
-    );
+    return !isDismissible
+        ? scaffold
+        : Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.vertical,
+            onDismissed: (_) => Navigator.of(context).pop(),
+            child: scaffold,
+          );
   }
 }
 

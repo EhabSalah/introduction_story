@@ -14,16 +14,16 @@ class _StoryIntroductionBloc
   final int _storiesCount;
 
   _StoryIntroductionBloc({
-    required int storiesCount,
+    required int storiesLength,
     required int storyDuration,
-  })  : _storiesCount = storiesCount,
+  })  : _storiesCount = storiesLength,
         _storyDuration = storyDuration,
-        assert(storiesCount > 0, 'Stories count should be more than zero!'),
+        assert(storiesLength > 0, 'Stories count should be more than zero!'),
         assert(storyDuration >= 1000, 'Story duration should be >= 1 second.'),
         super(
           _WatchProgress(
             currentStoryIndex: 0,
-            watchProgress: List.generate(storiesCount, (index) => 0),
+            watchProgress: List.generate(storiesLength, (_) => 0),
           ),
         ) {
     on<_Start>(_onStart);
@@ -46,17 +46,18 @@ class _StoryIntroductionBloc
   void _onStart(_Start _, Emitter<_StoryIntroductionState> emit) {
     final duration = _storyDuration ~/ 100;
 
-    _storyTimer = Timer.periodic(
-      Duration(milliseconds: duration),
-      (_) => add(_TimerTick()),
-    );
+    _storyTimer = Timer.periodic(Duration(milliseconds: duration), (_) {
+      add(_TimerTick());
+    });
   }
 
-  void _onPause(_Pause _, Emitter<_StoryIntroductionState> emit) =>
-      _storyTimer?.cancel();
+  void _onPause(_Pause _, Emitter<_StoryIntroductionState> emit) {
+    _storyTimer?.cancel();
+  }
 
-  void _onContinue(_Continue _, Emitter<_StoryIntroductionState> emit) =>
-      add(_Start());
+  void _onContinue(_Continue _, Emitter<_StoryIntroductionState> emit) {
+    add(_Start());
+  }
 
   void _onTimerTick(_TimerTick _, emit) async {
     const watchIncrementFactor = 0.01;

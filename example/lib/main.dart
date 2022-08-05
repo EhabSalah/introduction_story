@@ -57,42 +57,40 @@ class HomePage extends StatelessWidget {
       context,
       PageRouteBuilder(
         opaque: false,
-        pageBuilder: (_, __, ___) => StoryIntroductionScreen(
-          StoryIntroductionProps(
-            duration: 4000,
-            isDismissible: true,
-            stories: [
-              Story(
-                imagePath: 'assets/IMAGE-1.png',
-                foreground: const _StoryForeground(
-                  foregroundColor: Colors.white,
-                  title: 'Online Grocery Shopping',
-                  description:
-                      'Shop your favourite groceries and ready to cook, heat & eat selection of artisanal, handcrafted products made fresh daily for you to devour.',
-                ),
+        pageBuilder: (_, __, ___) => StoryIntroduction(
+          duration: 4000,
+          isDismissible: true,
+          stories: [
+            Story(
+              imagePath: 'assets/IMAGE-1.png',
+              foreground: const _StoryForeground(
+                foregroundColor: Colors.white,
+                title: 'Online Grocery Shopping',
+                description:
+                'Shop your favourite groceries and ready to cook, heat & eat selection of artisanal, handcrafted products made fresh daily for you to devour.',
               ),
-              Story(
-                imagePath: 'assets/IMAGE-2.png',
-                lightMode: false,
-                foreground: const _StoryForeground(
-                  foregroundColor: Colors.black,
-                  title: 'Premium quality is our aim',
-                  description:
-                      'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
-                ),
+            ),
+            Story(
+              imagePath: 'assets/IMAGE-2.png',
+              lightMode: false,
+              foreground: const _StoryForeground(
+                foregroundColor: Colors.black,
+                title: 'Premium quality is our aim',
+                description:
+                'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
               ),
-              Story(
-                imagePath: 'assets/IMAGE-3.png',
-                lightMode: false,
-                foreground: const _StoryForeground(
-                  foregroundColor: Colors.black,
-                  title: 'We deliver fresh and fast',
-                  description:
-                      'Your Gourmet groceries are just a click away! Pick your favourite groceries and receive your order within 15 minutes.',
-                ),
+            ),
+            Story(
+              imagePath: 'assets/IMAGE-3.png',
+              lightMode: false,
+              foreground: const _StoryForeground(
+                foregroundColor: Colors.black,
+                title: 'We deliver fresh and fast',
+                description:
+                'Your Gourmet groceries are just a click away! Pick your favourite groceries and receive your order within 15 minutes.',
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
