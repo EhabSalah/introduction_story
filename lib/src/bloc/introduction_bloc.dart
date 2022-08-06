@@ -32,7 +32,7 @@ class IntroductionBloc extends Bloc<IntroductionEvent, IntroductionState> {
         _completeStoryProgress = completeStoryProgress,
         _ticker = ticker ?? const Ticker(),
         assert(storiesLength > 0, 'Stories count should be more than zero!'),
-        assert(completeStoryProgress > 100, ''),
+        assert(completeStoryProgress <= 100, ''),
         assert(storyDuration >= 1000, 'Story duration should be >= 1 second.'),
         super(IntroductionInitial(0, List.generate(storiesLength, (_) => 0))) {
     on<IntroductionStarted>(_onStarted);

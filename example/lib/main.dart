@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                 foregroundColor: Colors.white,
                 title: 'Online Grocery Shopping',
                 description:
-                'Shop your favourite groceries and ready to cook, heat & eat selection of artisanal, handcrafted products made fresh daily for you to devour.',
+                    'Shop your favourite groceries and ready to cook, heat & eat selection of artisanal, handcrafted products made fresh daily for you to devour.',
               ),
             ),
             Story(
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                 foregroundColor: Colors.black,
                 title: 'Premium quality is our aim',
                 description:
-                'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
+                    'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
               ),
             ),
             Story(
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                 foregroundColor: Colors.black,
                 title: 'We deliver fresh and fast',
                 description:
-                'Your Gourmet groceries are just a click away! Pick your favourite groceries and receive your order within 15 minutes.',
+                    'Your Gourmet groceries are just a click away! Pick your favourite groceries and receive your order within 15 minutes.',
               ),
             ),
           ],

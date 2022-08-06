@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 class Story {
   final Color? backgroundColor;
   final String? imagePath;
+  // ignore:library_private_types_in_public_api
   final _StoryTheme storyThemeMode;
   final Widget? foreground;
 

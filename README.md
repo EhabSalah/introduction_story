@@ -1,4 +1,7 @@
 
+![example workflow](https://github.com/ehabsalah/story_introduction/actions/workflows/build.yaml/badge.svg)
+<a href="https://codecov.io/gh/EhabSalah/story_introduction"><img src="https://codecov.io/gh/EhabSalah/story_introduction/branch/main/graph/badge.svg" alt="codecov"></a>
+
 
 A mobile user experience starting from a good app onboarding!
 
