@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
       PageRouteBuilder(
         opaque: false,
         pageBuilder: (_, __, ___) => StoryIntroduction(
-          duration: 4000,
+          duration: 10000,
           isDismissible: true,
           stories: [
             Story(

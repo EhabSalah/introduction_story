@@ -1,17 +1,14 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../bloc/introduction_bloc.dart';
 import '../story.dart';
 
-part '../bloc/story_introduction_bloc.dart';
-part '../bloc/story_introduction_event.dart';
-part '../bloc/story_introduction_state.dart';
 part 'gestures.dart';
+
 part 'watch_progress_bars.dart';
 
 class StoryIntroduction extends StatelessWidget {
@@ -38,24 +35,24 @@ class StoryIntroduction extends StatelessWidget {
     _prefetchImages(stories, context);
 
     final scaffold = Scaffold(
-      body: BlocProvider<_StoryIntroductionBloc>(
-        create: (_) => _StoryIntroductionBloc(
+      body: BlocProvider<IntroductionBloc>(
+        create: (_) => IntroductionBloc(
           storyDuration: duration,
           storiesLength: stories.length,
-        )..add(_Start()),
-        child: BlocConsumer<_StoryIntroductionBloc, _StoryIntroductionState>(
+        )..add(const IntroductionStarted()),
+        child: BlocConsumer<IntroductionBloc, IntroductionState>(
           listener: (_, state) {
-            if (state is _End) Navigator.pop(context);
+            if (state is IntroductionRunComplete) Navigator.pop(context);
           },
+          buildWhen: (_, current) => current is IntroductionRunInProgress,
           builder: (context, state) {
-            final imagePath = stories[state.currentStoryIndex].imagePath;
+            final imagePath = stories[state.index].imagePath;
 
-            final storyTheme = stories[state.currentStoryIndex].storyThemeMode;
+            final storyTheme = stories[state.index].storyThemeMode;
 
-            final backgroundColor =
-                stories[state.currentStoryIndex].backgroundColor;
+            final backgroundColor = stories[state.index].backgroundColor;
 
-            final foreground = stories[state.currentStoryIndex].foreground;
+            final foreground = stories[state.index].foreground;
 
             return AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
@@ -82,17 +79,23 @@ class StoryIntroduction extends StatelessWidget {
                   _Gestures(
                     onFirstHalfPressed: () {
                       context
-                          .read<_StoryIntroductionBloc>()
-                          .add(_PreviousStory());
+                          .read<IntroductionBloc>()
+                          .add(const IntroductionPrevious());
                     },
                     onSecondHalfPressed: () {
-                      context.read<_StoryIntroductionBloc>().add(_NextStory());
+                      context
+                          .read<IntroductionBloc>()
+                          .add(const IntroductionNext());
                     },
                     onLongPress: () {
-                      context.read<_StoryIntroductionBloc>().add(_Pause());
+                      context
+                          .read<IntroductionBloc>()
+                          .add(const IntroductionPause());
                     },
                     onLongPressUp: () {
-                      context.read<_StoryIntroductionBloc>().add(_Continue());
+                      context
+                          .read<IntroductionBloc>()
+                          .add(const IntroductionResume());
                     },
                   ),
 
@@ -110,7 +113,9 @@ class StoryIntroduction extends StatelessWidget {
                           children: [
                             // Progress bars
                             WatchProgressBars(
-                              percentWatched: state.storiesWatchProgress,
+                              progresses: state.watchProgress
+                                  .map((e) => e / 100)
+                                  .toList(),
                               color: storyTheme.foregroundColor,
                             ),
                             const SizedBox(height: 16),

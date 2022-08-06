@@ -1,4 +1,4 @@
 library story_introduction;
 
-export 'widgets/story_introduction_screen.dart';
-export 'story.dart';
+export 'src/widgets/story_introduction_screen.dart';
+export 'src/story.dart';

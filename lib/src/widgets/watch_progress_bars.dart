@@ -1,11 +1,11 @@
-part of "story_introduction_screen.dart";
+part of 'story_introduction_screen.dart';
 
 class WatchProgressBars extends StatelessWidget {
-  final List<double> percentWatched;
+  final List<double> progresses;
   final Color color;
 
   const WatchProgressBars(
-      {Key? key, required this.percentWatched, required this.color})
+      {Key? key, required this.progresses, required this.color})
       : super(key: key);
 
   @override
@@ -17,15 +17,17 @@ class WatchProgressBars extends StatelessWidget {
         linearMinHeight: 2,
       ),
       child: Row(
-        children: percentWatched.mapIndexed(
-          (index, element) {
-            final padding =
-                _getPadding(index: index, length: percentWatched.length);
+        children: progresses.mapIndexed(
+          (index, progress) {
+            final padding = _getPadding(
+              index: index,
+              length: progresses.length,
+            );
 
             return Expanded(
               child: Padding(
                 padding: padding,
-                child: LinearProgressIndicator(value: percentWatched[index]),
+                child: LinearProgressIndicator(value: progress),
               ),
             );
           },
@@ -38,7 +40,7 @@ class WatchProgressBars extends StatelessWidget {
     const horizontalPadding = 1.0;
 
     final isFirst = index == 0;
-    final isLast = index == percentWatched.length - 1;
+    final isLast = index == progresses.length - 1;
 
     if (isFirst) {
       return const EdgeInsetsDirectional.only(start: 0, end: horizontalPadding);
