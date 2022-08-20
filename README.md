@@ -1,5 +1,10 @@
 
+[![build-workflow](https://github.com/ehabsalah/story_introduction/actions/workflows/build.yaml/badge.svg)](https://github.com/ehabsalah/story_introduction/actions)
+[![codecov](https://codecov.io/gh/ehabsalah/story_introduction/branch/main/graph/badge.svg?token=M4M6UNCSRZ)](https://codecov.io/gh/ehabsalah/story_introduction)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+
+
+https://github.com/felangel/bloc/actions
 <!-- 
 This README describes the package. If you publish this package to pub.dev,
 this README's contents appear on the landing page for your package.
