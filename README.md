@@ -1,5 +1,8 @@
 
+[![build-workflow](https://github.com/ehabsalah/introduction_story/actions/workflows/build.yaml/badge.svg)](https://github.com/ehabsalah/introduction_story/actions)
+[![codecov](https://codecov.io/gh/ehabsalah/introduction_story/branch/main/graph/badge.svg?token=M4M6UNCSRZ)](https://codecov.io/gh/ehabsalah/introduction_story)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+
 <!-- 
 This README describes the package. If you publish this package to pub.dev,
 this README's contents appear on the landing page for your package.
