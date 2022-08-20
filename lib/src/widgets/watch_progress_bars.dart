@@ -1,3 +1,4 @@
+// coverage:ignore-file
 part of 'story_introduction_screen.dart';
 
 class _WatchProgressBars extends StatelessWidget {
