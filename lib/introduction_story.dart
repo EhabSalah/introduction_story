@@ -1,3 +1,4 @@
+// coverage:ignore-file
 library introduction_story;
 
 export 'src/model/story.dart';
