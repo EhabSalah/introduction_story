@@ -1,6 +1,6 @@
 name: introduction_story
-description: A new Flutter project.
-version: 0.0.1
+description: A social media story inspired screen to be used for introductions, whether to give users some information about your app (onboarding) or introduce new feature!
+version: 0.1.0
 homepage: https://github.com/EhabSalah/introduction_story
 issue_tracker: https://github.com/ehabsalah/introduction_story/issues
 
