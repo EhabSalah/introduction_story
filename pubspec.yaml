@@ -14,11 +14,13 @@ dependencies:
 
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
+  collection: ^1.16.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  test: ^1.21.4
   bloc_test: ^9.0.3
   mocktail: ^0.3.0
   very_good_analysis: ^3.0.1
