@@ -197,7 +197,7 @@ class _Foreground extends StatelessWidget {
               // Story name.
               Expanded(
                 child: Text(
-                  story.featureName,
+                  story.name,
                   style: story.decoration.nameTextStyle,
                   maxLines: 1,
                   overflow: TextOverflow.fade,
