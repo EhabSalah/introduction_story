@@ -91,7 +91,7 @@ class HomePage extends StatelessWidget {
           stories: [
             Story(
               imagePath: 'assets/image_1.png',
-              featureName: _featureName,
+              name: _featureName,
               title: 'Online Grocery Shopping',
               description:
                   'Shop your favourite groceries and ready to cook, heat & '
@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
             Story(
               imagePath: 'assets/image_2.png',
               title: 'Premium quality is our aim',
-              featureName: _featureName,
+              name: _featureName,
               description:
                   'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & '
                   'Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
             Story(
               imagePath: 'assets/image_3.png',
               title: 'We deliver fresh and fast',
-              featureName: _featureName,
+              name: _featureName,
               description:
                   'Your gourmet groceries are just a click away! Pick your '
                   'favourite groceries and receive your order '

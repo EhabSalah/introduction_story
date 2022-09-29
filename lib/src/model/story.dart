@@ -6,7 +6,7 @@ import 'package:introduction_story/src/model/story_decoration.dart';
 class Story {
   /// {@macro story_}
   Story({
-    this.featureName = '',
+    this.name = '',
     this.title = '',
     this.description = '',
     this.imagePath,
@@ -17,7 +17,7 @@ class Story {
         );
 
   /// Name of the story.
-  final String featureName;
+  final String name;
 
   /// Title of the story.
   final String title;
