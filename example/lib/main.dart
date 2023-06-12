@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
           isDismissible: true,
           stories: [
             Story(
-              imagePath: 'assets/image_1.png',
+              imagePath: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Jelly_cc11.jpg',
               name: _featureName,
               title: 'Online Grocery Shopping',
               description:
@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                   'fresh daily for you to devour.',
             ),
             Story(
-              imagePath: 'assets/image_2.png',
+              imagePath: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Jelly_cc11.jpg',
               title: 'Premium quality is our aim',
               name: _featureName,
               description:
@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
               decoration: const StoryDecoration(lightMode: false),
             ),
             Story(
-              imagePath: 'assets/image_3.png',
+              imagePath: 'https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/adae5b77-380f-4c37-ae1a-97323e66ed55/Art_of_1.jpg',
               title: 'We deliver fresh and fast',
               name: _featureName,
               description:
