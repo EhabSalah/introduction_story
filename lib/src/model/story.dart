@@ -9,12 +9,13 @@ class Story {
     this.name = '',
     this.title = '',
     this.description = '',
-    this.imagePath,
+    required this.imagePath,
     this.decoration = const StoryDecoration(),
   }) : assert(
-          imagePath != null || decoration.backgroundColor != null,
-          'imagePath or backgroundColor must be provided!',
-        );
+           decoration.backgroundColor != null,
+          'backgroundColor must be provided!',
+        )
+        ;
 
   /// Name of the story.
   final String name;
@@ -26,7 +27,7 @@ class Story {
   final String description;
 
   /// Story background image.
-  final String? imagePath;
+  final String imagePath;
 
   /// Story decoration
   /// Contains all story customizations, like color, brightness, text styles.

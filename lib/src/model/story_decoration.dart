@@ -10,7 +10,7 @@ class StoryDecoration {
   const StoryDecoration({
     this.lightMode = true,
     Color? foregroundColor,
-    this.backgroundColor,
+    this.backgroundColor = Colors.transparent,
     TextStyle titleTextStyle = const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
