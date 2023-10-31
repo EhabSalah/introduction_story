@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                       'We can suppose that this is a brief for the newly provided feature. Checkout the CTA below.\n',
                   children: [
                     TextSpan(
-                      text: 'Tap for more information about $_featureName. 🍇',
+                      text: 'Tap for more information about $_featureName. 🍇✨😃🎂',
                       style: const TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.lightBlueAccent,
@@ -88,9 +88,10 @@ class HomePage extends StatelessWidget {
         opaque: false,
         pageBuilder: (_, __, ___) => IntroductionStoryScreen(
           isDismissible: true,
+          isAsset: false,
           stories: [
             Story(
-              imagePath: 'assets/image_1.png',
+              imagePath: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
               name: _featureName,
               title: 'Online Grocery Shopping',
               description:
@@ -99,23 +100,24 @@ class HomePage extends StatelessWidget {
                   'fresh daily for you to devour.',
             ),
             Story(
-              imagePath: 'assets/image_2.png',
+              imagePath: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
               title: 'Premium quality is our aim',
               name: _featureName,
+              
               description:
                   'Categories: Fresh Fruits, Vegetables & Herbs, Bakery & '
                   'Pastry, Cheese, Dairy & Deli, Desserts & Sweets.',
-              decoration: const StoryDecoration(lightMode: false),
+              
             ),
             Story(
-              imagePath: 'assets/image_3.png',
+              imagePath: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=327&q=80',
               title: 'We deliver fresh and fast',
               name: _featureName,
+
               description:
                   'Your gourmet groceries are just a click away! Pick your '
                   'favourite groceries and receive your order '
                   'within 15 minutes.',
-              decoration: const StoryDecoration(lightMode: false),
             ),
           ],
         ),
