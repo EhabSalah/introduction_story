@@ -78,11 +78,18 @@ class IntroductionBloc extends Bloc<IntroductionEvent, IntroductionState> {
   }
 
   void _onPause(_, Emitter<IntroductionState> emit) {
+    
     _tickerSubscription?.pause();
+    print("_______Paused ${_tickerSubscription?.isPaused}");
   }
 
   void _onResumed(_, Emitter<IntroductionState> emit) {
+    final watchProgress = List<int>.from(state.watchProgress);
+    final currentStoryIndex = state.index;
+    emit(IntroductionRunInProgress(currentStoryIndex, watchProgress));
     _tickerSubscription?.resume();
+
+    print("_______Resumed ${_tickerSubscription?.isPaused}");
   }
 
   // Emits IntroductionRunInProgress with current story watch progress updates.
